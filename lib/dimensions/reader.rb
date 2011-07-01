@@ -1,4 +1,4 @@
-require "dimensions/jpeg_scanner"
+require 'dimensions/jpeg_scanner'
 
 module Dimensions
   class Reader

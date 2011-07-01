@@ -1,4 +1,4 @@
-require "dimensions/exif_scanner"
+require 'dimensions/exif_scanner'
 
 module Dimensions
   class JpegScanner < Scanner
