@@ -23,12 +23,8 @@ module Dimensions
     end
 
     def read(size, format)
-      if data = @data[@pos, size]
-        @pos += size
-        data.unpack(format)[0]
-      else
-        raise ScanError
-      end
+      data = read_data(size)
+      data.unpack(format)[0]
     end
 
     def read_data(size)
