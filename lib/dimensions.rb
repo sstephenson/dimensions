@@ -2,6 +2,7 @@ require 'dimensions/exif_scanner'
 require 'dimensions/io'
 require 'dimensions/jpeg_scanner'
 require 'dimensions/reader'
+require 'dimensions/scanner'
 
 # Extends an IO object with the `Dimensions::IO` module, which adds
 # `dimensions`, `width`, `height` and `angle` methods. The methods

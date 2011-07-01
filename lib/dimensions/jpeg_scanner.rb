@@ -1,25 +1,19 @@
 require "dimensions/exif_scanner"
 
 module Dimensions
-  class JpegScanner
-    class ScanError < ::StandardError; end
-
+  class JpegScanner < Scanner
     SOF_MARKERS = [0xC0..0xC3, 0xC5..0xC7, 0xC9..0xCB, 0xCD..0xCF]
     EOI_MARKER  = 0xD9  # end of image
     SOS_MARKER  = 0xDA  # start of stream
-    COM_MARKER  = 0xFE  # comment
     APP1_MARKER = 0xE1  # maybe EXIF
 
     attr_reader :width, :height, :angle
 
     def initialize(data)
-      @data   = data.dup
-      @data.force_encoding("BINARY") if @data.respond_to?(:force_encoding)
-      @size   = @data.length
-      @pos    = 0
-      @angle  = 0
       @width  = nil
       @height = nil
+      @angle  = 0
+      super
     end
 
     def scan
@@ -38,7 +32,7 @@ module Dimensions
         end
       end
 
-      @width && @height
+      width && height
     end
 
     def read_next_marker
@@ -48,10 +42,10 @@ module Dimensions
     end
 
     def scan_start_of_frame
-      length = read_int
+      length = read_short
       depth  = read_char
-      height = read_int
-      width  = read_int
+      height = read_short
+      width  = read_short
       size   = read_char
 
       if length == (size * 3) + 8
@@ -80,34 +74,13 @@ module Dimensions
     end
 
     def read_frame
-      length = read_int - 2
-      frame = @data[@pos, length]
-      @pos += length
-      raise ScanError if @pos > @size
-      frame
+      length = read_short - 2
+      read_data(length)
     end
 
     def skip_frame
-      length = read_int - 2
+      length = read_short - 2
       advance(length)
-    end
-
-    def read_int
-      (read_char << 8) + read_char
-    end
-
-    def read_char
-      if char = @data[@pos, 1]
-        @pos += 1
-        char.unpack("C")[0]
-      else
-        raise ScanError
-      end
-    end
-
-    def advance(length)
-      @pos += length
-      raise ScanError if @pos > @size
     end
   end
 end
