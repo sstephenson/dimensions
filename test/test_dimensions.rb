@@ -27,12 +27,12 @@ class TestDimensions < Dimensions::TestCase
   end
 
   def assert_dimensions(filename, expected_width, expected_height)
-    actual_width, actual_height = with_fixture(filename) { |file| Dimensions.dimensions(file) }
+    actual_width, actual_height = Dimensions.dimensions(fixture_path(filename))
     assert_equal "#{expected_width}x#{expected_height}", "#{actual_width}x#{actual_height}"
   end
 
   def assert_angle(filename, expected_angle)
-    actual_angle = with_fixture(filename) { |file| Dimensions.angle(file) }
+    actual_angle = Dimensions.angle(fixture_path(filename))
     assert_equal expected_angle, actual_angle
   end
 end
