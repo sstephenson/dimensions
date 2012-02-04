@@ -39,6 +39,11 @@ module Dimensions
       io_for(path).angle
     end
 
+    # Returns the dimensions of the already read file
+    def for_file(file)
+      io_string_for(file).dimensions
+    end
+
     private
       def io_for(path)
         Dimensions(File.open(path, "rb")).tap do |io|
@@ -46,5 +51,10 @@ module Dimensions
           io.close
         end
       end
+
+    def io_string_for(string)
+      Dimensions(StringIO.new(string, "rb")).tap { |io| io.read }
+    end
+
   end
 end
