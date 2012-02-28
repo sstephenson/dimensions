@@ -48,6 +48,10 @@ module Dimensions
       io_string_for(file).dimensions
     end
 
+    def type_for_file(file)
+      io_string_for(file).type
+    end
+
     private
       def io_for(path)
         Dimensions(File.open(path, "rb")).tap do |io|
