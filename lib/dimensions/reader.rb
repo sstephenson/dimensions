@@ -40,7 +40,7 @@ module Dimensions
         elsif match_header(PNG_HEADER, bytes)
           @type = :png
         elsif match_header(JPEG_HEADER, bytes)
-          @type = :jpeg
+          @type = :jpg
         end
 
         process @type ? :"extract_#{type}_dimensions" : nil
@@ -61,7 +61,7 @@ module Dimensions
       end
     end
 
-    def extract_jpeg_dimensions
+    def extract_jpg_dimensions
       scanner = JpegScanner.new(@data)
       if scanner.scan
         @width  = scanner.width
