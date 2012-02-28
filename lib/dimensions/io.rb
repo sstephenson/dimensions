@@ -27,5 +27,9 @@ module Dimensions
     def angle
       @reader.angle
     end
+
+    def type
+      @reader.type
+    end
   end
 end
