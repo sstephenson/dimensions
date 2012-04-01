@@ -36,11 +36,19 @@ module Dimensions
 
         if tag == 0x0112 # orientation
           advance(6)
-          @orientation = ORIENTATIONS[read_short - 1]
+          value = read_short
+
+          if valid_orientation?(value)
+            @orientation = ORIENTATIONS[value - 1]
+          end
         end
       end
 
       @orientation
+    end
+
+    def valid_orientation?(value)
+      (1..ORIENTATIONS.length).include?(value)
     end
 
     def scan_header
