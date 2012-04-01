@@ -43,7 +43,7 @@ module Dimensions
 
     def scan_start_of_frame
       length = read_short
-      depth  = read_char
+      read_char # depth, unused
       height = read_short
       width  = read_short
       size   = read_char
