@@ -63,6 +63,18 @@ module Uploader
 end
 ```
 
+### Version History
+
+**1.1.0** (April 1, 2012)
+
+* Fixed an issue where images with certain invalid orientation values
+  would be improperly treated as having an angle of 270 degrees.
+* Eliminated a message when loading Dimensions with warnings enabled.
+
+**1.0.0** (July 1, 2011)
+
+* Initial release.
+
 ### License
 
 (The MIT License)
