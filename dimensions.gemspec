@@ -10,8 +10,8 @@ spec = Gem::Specification.new do |s|
   s.authors      = ["Sam Stephenson"]
   s.email        = ["sstephenson@gmail.com"]
   s.homepage     = "https://github.com/sstephenson/dimensions"
-  s.summary      = "Pure Ruby dimension measurement for GIF, PNG and JPEG images"
-  s.description  = "A pure Ruby library for measuring the dimensions and rotation angles of GIF, PNG and JPEG images."
+  s.summary      = "Pure Ruby dimension measurement for GIF, PNG, JPEG and TIFF images"
+  s.description  = "A pure Ruby library for measuring the dimensions and rotation angles of GIF, PNG, JPEG and TIFF images."
   s.files        = Dir["README.md", "LICENSE", "lib/**/*.rb"]
   s.require_path = "lib"
 end

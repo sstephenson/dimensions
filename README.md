@@ -65,6 +65,10 @@ end
 
 ### Version History
 
+**1.2.0** (April 25, 2012)
+
+* Added support for measuring the dimensions of TIFF images.
+
 **1.1.0** (April 1, 2012)
 
 * Fixed an issue where images with certain invalid orientation values
