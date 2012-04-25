@@ -1,7 +1,11 @@
 require 'dimensions/scanner'
+require 'dimensions/tiff_scanning'
 
 module Dimensions
   class ExifScanner < Scanner
+    include TiffScanning
+
+    ORIENTATION_TAG = 0x0112
     ORIENTATIONS = [
       :top_left,
       :top_right,
@@ -23,21 +27,9 @@ module Dimensions
     def scan
       scan_header
 
-      offset = read_long + 6
-      skip_to(offset)
-
-      # Note: This only checks the first IFD for orientation entries,
-      # which seems to work fine in my (limited) testing but might not
-      # play out in practice.
-      entry_count = read_short
-      entry_count.times do |i|
-        skip_to(offset + 2 + (12 * i))
-        tag = read_short
-
-        if tag == 0x0112 # orientation
-          advance(6)
-          value = read_short
-
+      scan_ifd do |tag|
+        if tag == ORIENTATION_TAG
+          value = read_integer_value
           if valid_orientation?(value)
             @orientation = ORIENTATIONS[value - 1]
           end
@@ -49,21 +41,6 @@ module Dimensions
 
     def valid_orientation?(value)
       (1..ORIENTATIONS.length).include?(value)
-    end
-
-    def scan_header
-      advance(6)
-      scan_endianness
-      scan_tag_mark
-    end
-
-    def scan_endianness
-      tag = [read_char, read_char]
-      @big = tag == [0x4D, 0x4D]
-    end
-
-    def scan_tag_mark
-      raise ScanError unless read_short == 0x002A
     end
   end
 end

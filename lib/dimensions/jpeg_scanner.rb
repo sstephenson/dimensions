@@ -51,14 +51,14 @@ module Dimensions
       if length == (size * 3) + 8
         @width, @height = width, height
       else
-        raise ScanError
+        raise_scan_error
       end
     end
 
     def scan_app1_frame
       frame = read_frame
       if frame[0..5] == "Exif\000\000"
-        scanner = ExifScanner.new(frame)
+        scanner = ExifScanner.new(frame[6..-1])
         if scanner.scan
           case scanner.orientation
           when :bottom_right

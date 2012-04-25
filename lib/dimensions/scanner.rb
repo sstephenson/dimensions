@@ -2,12 +2,14 @@ module Dimensions
   class Scanner
     class ScanError < ::StandardError; end
 
+    attr_reader :pos
+
     def initialize(data)
       @data = data.dup
       @data.force_encoding("BINARY") if @data.respond_to?(:force_encoding)
       @size = @data.length
       @pos  = 0
-      @big  = true  # endianness
+      big!  # endianness
     end
 
     def read_char
@@ -35,12 +37,24 @@ module Dimensions
 
     def advance(length)
       @pos += length
-      raise ScanError if @pos > @size
+      raise_scan_error if @pos > @size
     end
 
     def skip_to(pos)
       @pos = pos
-      raise ScanError if @pos > @size
+      raise_scan_error if @pos > @size
+    end
+
+    def big!
+      @big = true
+    end
+
+    def little!
+      @big = false
+    end
+
+    def raise_scan_error
+      raise ScanError
     end
   end
 end

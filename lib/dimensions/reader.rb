@@ -2,9 +2,11 @@ require 'dimensions/jpeg_scanner'
 
 module Dimensions
   class Reader
-    GIF_HEADER  = [0x47, 0x49, 0x46, 0x38]
-    PNG_HEADER  = [0x89, 0x50, 0x4E, 0x47]
-    JPEG_HEADER = [0xFF, 0xD8, 0xFF]
+    GIF_HEADER    = [0x47, 0x49, 0x46, 0x38]
+    PNG_HEADER    = [0x89, 0x50, 0x4E, 0x47]
+    JPEG_HEADER   = [0xFF, 0xD8, 0xFF]
+    TIFF_HEADER_I = [0x49, 0x49, 0x2A, 0x00]
+    TIFF_HEADER_M = [0x4D, 0x4D, 0x00, 0x2A]
 
     attr_reader :type, :width, :height, :angle
 
@@ -41,6 +43,8 @@ module Dimensions
           @type = :png
         elsif match_header(JPEG_HEADER, bytes)
           @type = :jpeg
+        elsif match_header(TIFF_HEADER_I, bytes) || match_header(TIFF_HEADER_M, bytes)
+          @type = :tiff
         end
 
         process @type ? :"extract_#{type}_dimensions" : nil
@@ -75,6 +79,16 @@ module Dimensions
         process nil
       end
     rescue JpegScanner::ScanError
+    end
+
+    def extract_tiff_dimensions
+      scanner = TiffScanner.new(@data)
+      if scanner.scan
+        @width  = scanner.width
+        @height = scanner.height
+        process nil
+      end
+    rescue TiffScanner::ScanError
     end
 
     def match_header(header, bytes)
