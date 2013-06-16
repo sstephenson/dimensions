@@ -1,4 +1,4 @@
-require 'dimensions/test_case'
+require File.expand_path('../dimensions/test_case', __FILE__)
 
 class TestTiffScanner < Dimensions::TestCase
   def test_scanning_tiff_with_short_values

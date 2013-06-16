@@ -1,4 +1,4 @@
-require 'dimensions/test_case'
+require File.expand_path('../dimensions/test_case', __FILE__)
 
 class TestExifScanner < Dimensions::TestCase
   def test_scanning_exif_with_top_left_orientation
