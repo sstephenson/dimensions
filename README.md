@@ -65,6 +65,11 @@ end
 
 ### Version History
 
+**1.3.0** (November 26, 2013)
+
+* Added support for calling `#dimensions` on a Dimensions-extended
+  rewindable IO without first calling `#read`.
+
 **1.2.0** (April 25, 2012)
 
 * Added support for measuring the dimensions of TIFF images.
