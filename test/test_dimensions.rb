@@ -1,4 +1,4 @@
-require 'dimensions/test_case'
+require File.expand_path('../dimensions/test_case', __FILE__)
 
 class TestDimensions < Dimensions::TestCase
   def test_animated_gif_dimensions

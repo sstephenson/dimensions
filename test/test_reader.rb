@@ -1,4 +1,4 @@
-require 'dimensions/test_case'
+require File.expand_path('../dimensions/test_case', __FILE__)
 
 class TestReader < Dimensions::TestCase
   def test_identifying_gif_file
