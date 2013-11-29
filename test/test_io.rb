@@ -1,6 +1,8 @@
 require 'dimensions/test_case'
 
 class TestIO < Dimensions::TestCase
+  class NotIO; end
+
   def test_extends_io
     with_extended_file do |file|
       assert file.is_a?(Dimensions::IO)
@@ -29,6 +31,10 @@ class TestIO < Dimensions::TestCase
       assert ! file.width
       assert_equal 1, file.pos
     end
+  end
+
+  def test_skips_peeking_unless_quacks_right
+    assert_equal nil, Dimensions(NotIO.new).dimensions
   end
 
   private
