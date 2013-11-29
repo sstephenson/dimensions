@@ -40,7 +40,7 @@ module Dimensions
       end
 
       def no_peeking?
-        @reader.width || closed? || pos != 0
+        @reader.width || (!respond_to?(:closed?) || closed?) || (!respond_to?(:pos) || pos != 0)
       end
   end
 end
