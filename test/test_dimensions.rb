@@ -30,6 +30,10 @@ class TestDimensions < Dimensions::TestCase
     assert_dimensions "short.tif", 50, 20
   end
 
+  def test_windows_bmp_dimensions
+    assert_dimensions "windows.bmp", 127, 64
+  end
+
   def assert_dimensions(filename, expected_width, expected_height)
     actual_width, actual_height = Dimensions.dimensions(fixture_path(filename))
     assert_equal "#{expected_width}x#{expected_height}", "#{actual_width}x#{actual_height}"
