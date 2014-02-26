@@ -56,7 +56,12 @@ module Dimensions
 
     def extract_bmp_dimensions
       if @size >= 26
-        @width, @height = @data.unpack("x18V2")
+        dib_header_size = @data.unpack("x14C").first
+        @width, @height = if dib_header_size == 12
+                            @data.unpack("x18v2")
+                          else
+                            @data.unpack("x18V2")
+                          end
         process nil
       end
     end
