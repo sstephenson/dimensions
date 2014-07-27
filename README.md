@@ -15,6 +15,13 @@ Dimensions.width("upload_bird.jpg")       # => 300
 Dimensions.height("upload_bird.jpg")      # => 225
 ```
 
+Use the `type` method to get image type:
+
+```ruby
+Dimensions.type("upload_bird.jpg")        # => :jpeg
+Dimensions.type("wrong_ext.txt")          # => :png
+```
+
 Many cameras and smartphones set the EXIF orientation attribute for
 photos taken in portrait or landscape mode. The Dimensions library
 reads this attribute and swaps the `width` and `height` values

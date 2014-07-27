@@ -33,6 +33,11 @@ module Dimensions
       io_for(path).height
     end
 
+    # Returns the type of the image at the given path.
+    def type(path)
+      io_for(path).type
+    end
+
     # Returns the rotation angle of the JPEG image at the given
     # path. If the JPEG is rotated 90 or 270 degrees (as is often the
     # case with photos from smartphones, for example) its width and
