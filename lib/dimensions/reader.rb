@@ -42,7 +42,7 @@ module Dimensions
         elsif match_header(PNG_HEADER, bytes)
           @type = :png
         elsif match_header(JPEG_HEADER, bytes)
-          @type = :jpeg
+          @type = :jpg
         elsif match_header(TIFF_HEADER_I, bytes) || match_header(TIFF_HEADER_M, bytes)
           @type = :tiff
         end
