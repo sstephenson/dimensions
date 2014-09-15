@@ -33,12 +33,25 @@ module Dimensions
       io_for(path).height
     end
 
+    def type(path)
+      io_for(path).type
+    end
+
     # Returns the rotation angle of the JPEG image at the given
     # path. If the JPEG is rotated 90 or 270 degrees (as is often the
     # case with photos from smartphones, for example) its width and
     # height will be swapped to accurately reflect the rotation.
     def angle(path)
       io_for(path).angle
+    end
+
+    # Returns the dimensions of the already read file
+    def for_file(file)
+      io_string_for(file).dimensions
+    end
+
+    def type_for_file(file)
+      io_string_for(file).type
     end
 
     private
@@ -48,5 +61,10 @@ module Dimensions
           io.close
         end
       end
+
+    def io_string_for(string)
+      Dimensions(StringIO.new(string, "rb")).tap { |io| io.read }
+    end
+
   end
 end

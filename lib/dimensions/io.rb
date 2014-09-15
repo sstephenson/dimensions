@@ -31,6 +31,9 @@ module Dimensions
       @reader.angle
     end
 
+    def type
+      @reader.type
+    end
     private
       def peek
         unless no_peeking?
