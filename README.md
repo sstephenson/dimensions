@@ -2,7 +2,7 @@ Dimensions
 ==========
 
 Dimensions is a pure Ruby library for reading the width, height and
-rotation angle of GIF, PNG and JPEG images.
+rotation angle of GIF, PNG, JPEG and TIFF images.
 
 Use the `dimensions`, `width` and `height` methods on the `Dimensions`
 module to measure image files:
@@ -63,11 +63,32 @@ module Uploader
 end
 ```
 
+### Version History
+
+**1.3.0** (November 26, 2013)
+
+* Added support for calling `#dimensions` on a Dimensions-extended
+  rewindable IO without first calling `#read`.
+
+**1.2.0** (April 25, 2012)
+
+* Added support for measuring the dimensions of TIFF images.
+
+**1.1.0** (April 1, 2012)
+
+* Fixed an issue where images with certain invalid orientation values
+  would be improperly treated as having an angle of 270 degrees.
+* Eliminated a message when loading Dimensions with warnings enabled.
+
+**1.0.0** (July 1, 2011)
+
+* Initial release.
+
 ### License
 
 (The MIT License)
 
-Copyright &copy; 2011 Sam Stephenson
+Copyright &copy; 2012 Sam Stephenson
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the

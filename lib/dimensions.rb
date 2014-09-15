@@ -3,6 +3,8 @@ require 'dimensions/io'
 require 'dimensions/jpeg_scanner'
 require 'dimensions/reader'
 require 'dimensions/scanner'
+require 'dimensions/tiff_scanner'
+require 'dimensions/tiff_scanning'
 require 'dimensions/version'
 
 # Extends an IO object with the `Dimensions::IO` module, which adds

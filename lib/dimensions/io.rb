@@ -17,19 +17,33 @@ module Dimensions
     end
 
     def width
+      peek
       @reader.width
     end
 
     def height
+      peek
       @reader.height
     end
 
     def angle
+      peek
       @reader.angle
     end
 
     def type
       @reader.type
     end
+    private
+      def peek
+        unless no_peeking?
+          read(pos + 1024) while @reader.width.nil? && pos < 6144
+          rewind
+        end
+      end
+
+      def no_peeking?
+        @reader.width || closed? || pos != 0
+      end
   end
 end

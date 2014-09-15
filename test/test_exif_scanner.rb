@@ -16,4 +16,12 @@ class TestExifScanner < Dimensions::TestCase
       assert_equal :right_top, scanner.orientation
     end
   end
+
+  def test_scanning_exif_with_invalid_orientation
+    with_fixture("invalid.exif") do |file|
+      scanner = Dimensions::ExifScanner.new(file.read)
+      assert_nil scanner.scan
+      assert_nil scanner.orientation
+    end
+  end
 end
