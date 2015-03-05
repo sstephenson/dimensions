@@ -34,7 +34,7 @@ module Dimensions
     private
       def peek
         unless no_peeking?
-          read(pos + 1024) while @reader.width.nil? && pos < 6144
+          read(pos + 1024) while @reader.width.nil? && pos < 31745
           rewind
         end
       end
