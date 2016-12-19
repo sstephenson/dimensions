@@ -5,6 +5,7 @@ module Dimensions
     GIF_HEADER    = [0x47, 0x49, 0x46, 0x38]
     PNG_HEADER    = [0x89, 0x50, 0x4E, 0x47]
     JPEG_HEADER   = [0xFF, 0xD8, 0xFF]
+    PSD_HEADER    = [0x38, 0x42, 0x50, 0x53]
     TIFF_HEADER_I = [0x49, 0x49, 0x2A, 0x00]
     TIFF_HEADER_M = [0x4D, 0x4D, 0x00, 0x2A]
 
@@ -45,6 +46,8 @@ module Dimensions
           @type = :jpeg
         elsif match_header(TIFF_HEADER_I, bytes) || match_header(TIFF_HEADER_M, bytes)
           @type = :tiff
+        elsif match_header(PSD_HEADER, bytes)
+          @type = :psd
         end
 
         process @type ? :"extract_#{type}_dimensions" : nil
@@ -61,6 +64,13 @@ module Dimensions
     def extract_png_dimensions
       if @size >= 24
         @width, @height = @data.unpack("x16N2")
+        process nil
+      end
+    end
+
+    def extract_psd_dimensions
+      if @size >= 22
+        @height, @width = @data.unpack("x14N2")
         process nil
       end
     end
